@@ -2,10 +2,10 @@ package com.github.yjj.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
-
-import com.github.yjj.entity.embed.DiffusionId;
 
 @Entity
 @Table(name="diffusion")
@@ -36,6 +36,10 @@ public class Diffusion implements Serializable{
 		
 	@Column(name="timeEnd")
 	private String timeEnd;
+	
+	@OneToMany(mappedBy = "diffusion")
+	private Set<Tarification> diffusionTarifications = new HashSet(); 
+
 	
 	
 	public Diffusion(){}
@@ -124,8 +128,24 @@ public class Diffusion implements Serializable{
 	public void setTimeEnd(String timeEnd) {
 		this.timeEnd = timeEnd;
 	}
+
+
+
+
+	public Set<Tarification> getDiffusionTarifications() {
+		return diffusionTarifications;
+	}
+
+
+
+
+	public void setDiffusionTarifications(Set<Tarification> diffusionTarifications) {
+		this.diffusionTarifications = diffusionTarifications;
+	}
 	
-	
+	public void addTarification(Tarification tarif){
+		diffusionTarifications.add(tarif);
+	}
 
 	
 	

@@ -14,7 +14,6 @@ import com.github.yjj.dto.DiffusionList;
 import com.github.yjj.entity.Diffusion;
 import com.github.yjj.entity.Film;
 import com.github.yjj.entity.Salle;
-import com.github.yjj.entity.embed.DiffusionId;
 import com.github.yjj.service.DiffusionService;
 import com.opensymphony.xwork2.Validateable;
 
@@ -28,12 +27,11 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 	private static final long serialVersionUID = 3408270573310310844L;
 	
 	DiffusionDto model;
-	DiffusionId diffusion = new DiffusionId();
+	Diffusion diffusion = new Diffusion();
 	DiffusionList diffusions;
 	
-	String dateStart;
-	String timeStart;
-	String timeEnd;
+	int filmId;
+	int salleId;
 	
 	
 	
@@ -61,11 +59,12 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 	}
 	
 	public HttpHeaders create() throws ParseException{
-		Film f = new Film(); f.setIdFilm(diffusion.getFilmId());
-		Salle s  = new Salle(); s.setIdSalle(diffusion.getSalleId());
-		String date =  getDateStart();
-		String start = getTimeStart();
-		String end = getTimeEnd();
+		
+		Film f = new Film(); f.setIdFilm(getFilmId());
+		Salle s  = new Salle(); s.setIdSalle(getSalleId());
+		String date =  diffusion.getDateStart();
+		String start = diffusion.getTimeStart();
+		String end = diffusion.getTimeEnd();
 		
 		System.out.println("data = "+date+" stat = "+start+" end "+end);
 		
@@ -73,36 +72,31 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 		model = new DiffusionDto(s, f, date, start, end);
 		
 		
-		diffService.doSave(model);
+		diffService.doSave(model); 
 		
 		
 		return null;
 	}
 
-	public String getDateStart() {
-		return dateStart;
-	}
-
-	public void setDateStart(String dateStart) {
-		this.dateStart = dateStart;
-	}
 	
 	
-
-	public String getTimeStart() {
-		return timeStart;
+	
+	
+	
+	public int getFilmId() {
+		return filmId;
 	}
 
-	public void setTimeStart(String timeStart) {
-		this.timeStart = timeStart;
+	public void setFilmId(int filmId) {
+		this.filmId = filmId;
 	}
 
-	public String getTimeEnd() {
-		return timeEnd;
+	public int getSalleId() {
+		return salleId;
 	}
 
-	public void setTimeEnd(String timeEnd) {
-		this.timeEnd = timeEnd;
+	public void setSalleId(int salleId) {
+		this.salleId = salleId;
 	}
 
 	@Override

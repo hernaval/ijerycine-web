@@ -55,28 +55,18 @@ public class DiffusionsServiceImpl  extends BaseServiceImpl implements Diffusion
 	public void doSave(DiffusionDto diff) throws ParseException {
 		// hibernate
 		Diffusion entity = DiffusionConverter.toEntity(diff);
-		 
-		/*System.out.println(entity.getDateStart());
-		System.out.println(entity.getTimeStart());
-		System.out.println(entity.getTimeEnd());
-		System.out.println(entity.getIdDiffusion());
-		System.out.println(entity.getFilm());*/
-	
-			/*entity = (Diffusion) getCurrentSession().get(Diffusion.class,entity.getDiffusionId());
+		//Diffusion isEntity = (Diffusion) getCurrentSession().get(Diffusion.class,entity.getIdDiffusion());
 			
-			if(entity.getDiffusionId() != null){
+			
+			/*if(isEntity != null ){
+				entity = isEntity;
 				// update fields set
 				entity.setFilm(diff.getFilm());
 				entity.setSalle(diff.getSalle());
-				entity.setIdDiffusion(diff.getIdDiffusion());
 				entity.setDateStart(diff.getDateStart());
 				entity.setTimeStart(diff.getTimeStart());
 				entity.setTimeEnd(diff.getTimeEnd());
 			} */
-		
-		/*Film f = (Film) getCurrentSession().get(Film.class, new Integer(1));
-		Salle s = (Salle) getCurrentSession().get(Salle.class, new Integer(1));
-		Diffusion d = new Diffusion(s,f,"sdfsd","sdfsd","sdfsdf");*/
 		
 		
 		getCurrentSession().saveOrUpdate(entity); 

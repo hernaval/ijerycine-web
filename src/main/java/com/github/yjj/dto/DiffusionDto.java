@@ -8,7 +8,6 @@ import javax.persistence.MapsId;
 
 import com.github.yjj.entity.Film;
 import com.github.yjj.entity.Salle;
-import com.github.yjj.entity.embed.DiffusionId;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("diffusion")
