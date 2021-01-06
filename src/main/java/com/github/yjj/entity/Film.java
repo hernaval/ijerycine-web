@@ -2,6 +2,8 @@ package com.github.yjj.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,7 +12,7 @@ import javax.persistence.*;
 public class Film implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idFilm;
 	
 	@Column(name="titre")
@@ -22,13 +24,26 @@ public class Film implements Serializable {
 	@Column(name="genre")
 	private String genre;
 	
-	/*@OneToMany(mappedBy = "film")
-	private Collection<Diffusion> filmDiffusions; */
+	@OneToMany(mappedBy = "film")
+	private Set<Diffusion> filmDiffusions = new HashSet(); 
 	
 	public Film(){
 		
 	}
 	
+	
+	
+	public Film(int idFilm, String titre, String duree, String genre) {
+		super();
+		this.idFilm = idFilm;
+		this.titre = titre;
+		this.duree = duree;
+		this.genre = genre;
+		this.filmDiffusions = filmDiffusions;
+	}
+
+
+
 	public Film(String titre, String duree, String genre) {
 		super();
 		this.titre = titre;
@@ -66,6 +81,20 @@ public class Film implements Serializable {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+	
+
+	public Set<Diffusion> getFilmDiffusions() {
+		return filmDiffusions;
+	}
+
+	public void setFilmDiffusions(Set<Diffusion> filmDiffusions) {
+		this.filmDiffusions = filmDiffusions;
+	}
+	
+	public void addDiffusion(Diffusion diff){
+		filmDiffusions.add(diff);
 	}
 
 	@Override

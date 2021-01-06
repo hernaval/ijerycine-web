@@ -46,6 +46,13 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	public void saveOrUpdate(T o) {
 		this.getCurrentSession().saveOrUpdate(o);
 	}
+	
+	public void persit(T o ){
+		this.getCurrentSession().persist(o);
+	}
+	
+
+
 
 	public List<T> find(String hql) {
 		return this.getCurrentSession().createQuery(hql).list();

@@ -2,6 +2,8 @@ package com.github.yjj.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,19 +12,28 @@ import javax.persistence.*;
 public class Salle implements Serializable {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idSalle;
 	
 	@Column(name="nomSalle")
 	private String nomSalle;
 	
-	/*@OneToMany(mappedBy = "salle")
-	private Collection<Diffusion> salleDiffusions;*/
+	@OneToMany(mappedBy = "salle")
+	private Set<Diffusion> salleDiffusions = new HashSet();
 	
 	
 	public Salle(){}
 
 	
+	
+
+	public Salle(String nomSalle) {
+		super();
+		this.nomSalle = nomSalle;
+	}
+
+
+
 
 	public Salle(int idSalle, String nomSalle) {
 		super();
@@ -50,6 +61,22 @@ public class Salle implements Serializable {
 
 	public void setNomSalle(String nomSalle) {
 		this.nomSalle = nomSalle;
+	}
+	
+	
+
+	public Set<Diffusion> getSalleDiffusions() {
+		return salleDiffusions;
+	}
+
+
+
+	public void setSalleDiffusions(Set<Diffusion> salleDiffusions) {
+		this.salleDiffusions = salleDiffusions;
+	}
+	
+	public void addDiffusion(Diffusion diff){
+		salleDiffusions.add(diff);
 	}
 
 
