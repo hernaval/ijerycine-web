@@ -36,6 +36,14 @@ public class Tarification implements Serializable {
 		this.prix = prix;
 		this.diffusion = diffusion;
 	}
+	
+	
+
+	public Tarification(String nomCategorie, float prix) {
+		super();
+		this.nomCategorie = nomCategorie;
+		this.prix = prix;
+	}
 
 	public int getIdTarif() {
 		return idTarif;

@@ -1,23 +1,32 @@
 package com.github.yjj.action;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.annotate.JsonIgnoreType;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.yjj.action.base.RestBaseAction;
 import com.github.yjj.dto.DiffusionDto;
 import com.github.yjj.dto.DiffusionList;
+import com.github.yjj.dto.TarificationDto;
 import com.github.yjj.entity.Diffusion;
 import com.github.yjj.entity.Film;
 import com.github.yjj.entity.Salle;
+import com.github.yjj.entity.Tarification;
 import com.github.yjj.service.DiffusionService;
 import com.opensymphony.xwork2.Validateable;
 
 import net.sf.json.JSONObject;
+
 
 public class DiffusionsController extends RestBaseAction implements Validateable  {
 
@@ -32,6 +41,12 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 	
 	int filmId;
 	int salleId;
+	
+	float prixSimple;
+	float prixPremium;
+	float prixGold;
+	
+	String ts;
 	
 	
 	
@@ -66,13 +81,17 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 		String start = diffusion.getTimeStart();
 		String end = diffusion.getTimeEnd();
 		
-		System.out.println("data = "+date+" stat = "+start+" end "+end);
-		
 		
 		model = new DiffusionDto(s, f, date, start, end);
 		
+		TarificationDto tarif1 = new TarificationDto("vip", getPrixGold());
+		TarificationDto tarif2 = new TarificationDto("simple", getPrixSimple());
+		TarificationDto tarif3 = new TarificationDto("gold", getPrixPremium());
 		
-		diffService.doSave(model); 
+		List<TarificationDto> tarifs = new ArrayList();
+		tarifs.add(tarif1);tarifs.add(tarif2);tarifs.add(tarif3);
+		
+		 diffService.doSave(model,tarifs);  
 		
 		
 		return null;
@@ -97,6 +116,45 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 
 	public void setSalleId(int salleId) {
 		this.salleId = salleId;
+	}
+	
+	
+	
+	
+	
+
+	
+
+	public float getPrixSimple() {
+		return prixSimple;
+	}
+
+	public void setPrixSimple(float prixSimple) {
+		this.prixSimple = prixSimple;
+	}
+
+	public float getPrixPremium() {
+		return prixPremium;
+	}
+
+	public void setPrixPremium(float prixPremium) {
+		this.prixPremium = prixPremium;
+	}
+
+	public float getPrixGold() {
+		return prixGold;
+	}
+
+	public void setPrixGold(float prixGold) {
+		this.prixGold = prixGold;
+	}
+
+	public String getTs() {
+		return ts;
+	}
+
+	public void setTs(String ts) {
+		this.ts = ts;
 	}
 
 	@Override

@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 
 import com.github.yjj.convertor.DiffusionConverter;
 import com.github.yjj.convertor.OrderConverter;
+import com.github.yjj.convertor.TarificationConverter;
 import com.github.yjj.dao.BaseDAO;
 import com.github.yjj.dto.DiffusionDto;
+import com.github.yjj.dto.TarificationDto;
 import com.github.yjj.entity.Diffusion;
 import com.github.yjj.entity.Film;
 import com.github.yjj.entity.Salle;
 import com.github.yjj.entity.TOrder;
+import com.github.yjj.entity.Tarification;
 import com.github.yjj.service.DiffusionService;
 import com.github.yjj.service.OrderService;
 
@@ -52,24 +55,16 @@ public class DiffusionsServiceImpl  extends BaseServiceImpl implements Diffusion
 	}
 
 	@Override
-	public void doSave(DiffusionDto diff) throws ParseException {
+	public void doSave(DiffusionDto diff, List<TarificationDto> tarifs) throws ParseException {
 		// hibernate
 		Diffusion entity = DiffusionConverter.toEntity(diff);
-		//Diffusion isEntity = (Diffusion) getCurrentSession().get(Diffusion.class,entity.getIdDiffusion());
-			
-			
-			/*if(isEntity != null ){
-				entity = isEntity;
-				// update fields set
-				entity.setFilm(diff.getFilm());
-				entity.setSalle(diff.getSalle());
-				entity.setDateStart(diff.getDateStart());
-				entity.setTimeStart(diff.getTimeStart());
-				entity.setTimeEnd(diff.getTimeEnd());
-			} */
+		for(TarificationDto t : tarifs){
+			Tarification tarifEntity = TarificationConverter.toEntity(t);
+			tarifEntity.setDiffusion(entity);
+			getCurrentSession().saveOrUpdate(tarifEntity); 
+		}
+	
 		
-		
-		getCurrentSession().saveOrUpdate(entity); 
 	}
 
 	

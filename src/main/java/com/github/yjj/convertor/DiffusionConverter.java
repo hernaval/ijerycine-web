@@ -13,20 +13,15 @@ public class DiffusionConverter {
 	public static DiffusionDto toDto(Diffusion entity){
 		DiffusionDto diff = new DiffusionDto();
 		diff.setFilm(entity.getFilm());
-		diff.setSalle(entity.getSalle());
+		diff.setSalle(entity.getSalle()); 
+		
 		diff.setIdDiffusion(entity.getIdDiffusion());
 		
 		diff.setDateStart(entity.getDateStart());
-		diff.setTimeStart(entity.getTimeStart());
+		diff.setTimeStart(entity.getTimeStart()); 
 		diff.setTimeEnd(entity.getTimeEnd()); 
 		
-		/*return new DiffusionDto(entity.getDiffusionId(),
-				entity.getIdDiffusion(), entity.getSalle(),
-				entity.getFilm(),
-				entity.getTimeStart(),
-				entity.getDateStart(),
-				entity.getDateStart()
-				); */
+		
 		return diff;
 	}
 	
@@ -38,6 +33,7 @@ public class DiffusionConverter {
 				dto.getDateStart(),
 				dto.getTimeStart(),
 				dto.getTimeEnd()
+				
 				);
 	}
 }

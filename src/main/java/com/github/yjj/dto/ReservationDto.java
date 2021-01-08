@@ -1,49 +1,44 @@
-package com.github.yjj.entity;
+package com.github.yjj.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreType;
 
-@Entity
-@Table(name="reservation")
-public class Reservation implements Serializable {
+import com.github.yjj.entity.Client;
+import com.github.yjj.entity.Diffusion;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("reservation")
+
+public class ReservationDto implements Serializable {
 	
-	@Id
-	@GeneratedValue
+	
 	private int idResa;
 	
-	@Column(name="qrImage")
 	private String qrImage;
-	
-	@Column(name="categorie")
+
 	private String categorie;
 	
-	@Column(name="numPlace")
 	private String numPlace;
 	
-	@Column(name="status")
 	private boolean status;
 	
-	
-	@Column(name="createdAt")
 	private String createdAt;
 	
-	@ManyToOne
 	private Diffusion diffusion;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
 	private Client client;
 	
-	
-	public Reservation() {
+	public ReservationDto() {
 		
 	}
 	
 	
 
 
-	public Reservation(int idResa, String qrImage, String categorie, String numPlace, boolean status, String createdAt,
+	public ReservationDto(int idResa, String qrImage, String categorie, String numPlace, boolean status, String createdAt,
 			Diffusion diffusion, Client client) {
 		super();
 		this.idResa = idResa;
@@ -61,7 +56,7 @@ public class Reservation implements Serializable {
 
 
 
-	public Reservation(int idResa, String qrImage, String categorie, String numPlace, boolean status, String createdAt) {
+	public ReservationDto(int idResa, String qrImage, String categorie, String numPlace, boolean status, String createdAt) {
 		super();
 		this.idResa = idResa;
 		this.qrImage = qrImage;
@@ -74,7 +69,7 @@ public class Reservation implements Serializable {
 
 
 
-	public Reservation(String qrImage, String categorie, String numPlace, boolean status, String createdAt,
+	public ReservationDto(String qrImage, String categorie, String numPlace, boolean status, String createdAt,
 			Diffusion diffusion, Client client) {
 		super();
 		this.qrImage = qrImage;
@@ -169,10 +164,5 @@ public class Reservation implements Serializable {
 	}
 	
 	
-	
-	
 
-	
-	
-	
 }

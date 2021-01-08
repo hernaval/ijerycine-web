@@ -25,6 +25,9 @@ public class Diffusion implements Serializable{
     @JoinColumn(name = "film_id") 
 	private Film film;
 	
+	@OneToMany(mappedBy ="diffusion")
+	private Set<Reservation> resaDiffusions = new HashSet(); 
+	
 		
 	@Column(name="dateStart")
 	private String dateStart;
@@ -45,6 +48,22 @@ public class Diffusion implements Serializable{
 	public Diffusion(){}
 	
 	
+    
+
+	public Diffusion(int idDiffusion, Salle salle, Film film, Set<Reservation> resaDiffusions, String dateStart,
+			String timeStart, String timeEnd, Set<Tarification> diffusionTarifications) {
+		super();
+		this.idDiffusion = idDiffusion;
+		this.salle = salle;
+		this.film = film;
+		this.resaDiffusions = resaDiffusions;
+		this.dateStart = dateStart;
+		this.timeStart = timeStart;
+		this.timeEnd = timeEnd;
+		this.diffusionTarifications = diffusionTarifications;
+	}
+
+
 
 
 	public Diffusion(int idDiffusion, Salle salle, Film film, String dateStart, String timeStart, String timeEnd) {
@@ -68,6 +87,16 @@ public class Diffusion implements Serializable{
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
 	}
+	
+	
+
+
+	public Diffusion(int idDiffusion) {
+		super();
+		this.idDiffusion = idDiffusion;
+	}
+
+
 
 
 	public int getIdDiffusion() {
@@ -146,6 +175,22 @@ public class Diffusion implements Serializable{
 	public void addTarification(Tarification tarif){
 		diffusionTarifications.add(tarif);
 	}
+
+
+
+
+	public Set<Reservation> getResaDiffusions() {
+		return resaDiffusions;
+	}
+
+
+
+
+	public void setResaDiffusions(Set<Reservation> resaDiffusions) {
+		this.resaDiffusions = resaDiffusions;
+	}
+	
+	
 
 	
 	

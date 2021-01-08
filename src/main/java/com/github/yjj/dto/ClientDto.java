@@ -1,52 +1,41 @@
-package com.github.yjj.entity;
+package com.github.yjj.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
-
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreType;
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-@Table(name="client")
-public class Client implements Serializable {
-	@Id
-	@GeneratedValue(generator ="UUID")
-	@GenericGenerator(name = "UUID",
-		strategy = "org.hibernate.id.UUIDGenerator")
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("client")
+
+public class ClientDto {
+
+	
 	private String idClient;
 	
-	@Column(name="nom")
+	
 	private String nom;
 	
-	@Column(name="prenom")
+	
 	private String prenom;
 	
-	@Column(name="email")
+	
 	private String email;
 	
-	@Column(name="telephone",nullable=true)
+	
 	private String telephone;
 	
-	@Column(name="password", nullable=true)
+	
 	private String password;
 	
-	@Column(name="confirmCode",nullable=true)
 	private String confirmCode;
 	
 	
-	@Column(name="createdAt",nullable=true)
 	private String createdAt;
-	
-	
 
-	public Client() {
-		super();
-	}
-
-
-
-	public Client(String idClient, String nom, String prenom, String email,String telephone, String password, String confirmCode,
+	public ClientDto(String idClient, String nom, String prenom, String email,String telephone, String password, String confirmCode,
 			String createdAt) {
 		super();
 		this.idClient = idClient;
@@ -58,17 +47,6 @@ public class Client implements Serializable {
 		this.createdAt = createdAt;
 		this.telephone = telephone;
 	}
-	
-	
-
-	public Client(String nom, String prenom, String email) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-	}
-
-
 
 	public String getIdClient() {
 		return idClient;
@@ -134,10 +112,4 @@ public class Client implements Serializable {
 		this.telephone = telephone;
 	}
 	
-	
-	
-	
-	
-	
-
 }

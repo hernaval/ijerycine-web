@@ -2,7 +2,9 @@ package com.github.yjj.dto;
 
 
 import com.github.yjj.entity.Diffusion;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+@XStreamAlias("reservation")
 public class TarificationDto {
 	
 	private int idTarif;
@@ -26,6 +28,13 @@ public class TarificationDto {
 		this.nomCategorie = nomCategorie;
 		this.prix = prix;
 		this.diffusion = diffusion;
+	}
+	
+	
+	public TarificationDto(String nomCategorie, float prix) {
+		super();
+		this.nomCategorie = nomCategorie;
+		this.prix = prix;
 	}
 	public int getIdTarif() {
 		return idTarif;

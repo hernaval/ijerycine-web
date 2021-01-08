@@ -1,16 +1,23 @@
 package com.github.yjj.dto;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreType;
+
 import com.github.yjj.entity.Film;
+import com.github.yjj.entity.Reservation;
 import com.github.yjj.entity.Salle;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("diffusion")
+@JsonIgnoreProperties
+@JsonIgnoreType
 public class DiffusionDto {
 	
 	
@@ -22,10 +29,28 @@ public class DiffusionDto {
 	private String timeStart;
 	private String timeEnd;
 	
+	private Set<Reservation> resaDiffusions;
+	
 	public DiffusionDto() {
 		super();
 	}
 	
+	
+	
+	public DiffusionDto(int idDiffusion, Salle salle, Film film, String dateStart, String timeStart, String timeEnd,
+			Set<Reservation> resaDiffusions) {
+		super();
+		this.idDiffusion = idDiffusion;
+		this.salle = salle;
+		this.film = film;
+		this.dateStart = dateStart;
+		this.timeStart = timeStart;
+		this.timeEnd = timeEnd;
+		this.resaDiffusions = resaDiffusions;
+	}
+
+
+
 	public DiffusionDto(int idDiffusion, Salle salle, Film film, String dateStart, String timeStart, String timeEnd) {
 		super();
 		this.idDiffusion = idDiffusion;
@@ -98,6 +123,16 @@ public class DiffusionDto {
 	public void setTimeEnd(String timeEnd) {
 		this.timeEnd = timeEnd;
 	}
+
+	public Set<Reservation> getResaDiffusions() {
+		return resaDiffusions;
+	}
+
+	public void setResaDiffusions(Set<Reservation> resaDiffusions) {
+		this.resaDiffusions = resaDiffusions;
+	}
+	
+	
 	
 	
 	
