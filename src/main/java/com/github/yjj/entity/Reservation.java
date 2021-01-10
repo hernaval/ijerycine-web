@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name="reservation")
 public class Reservation implements Serializable {
@@ -149,21 +152,25 @@ public class Reservation implements Serializable {
 	}
 
 
+	@JsonIgnore
 	public Diffusion getDiffusion() {
 		return diffusion;
 	}
 
 
+	@JsonProperty
 	public void setDiffusion(Diffusion diffusion) {
 		this.diffusion = diffusion;
 	}
 
 
+	
 	public Client getClient() {
 		return client;
 	}
 
 
+	 @JsonProperty
 	public void setClient(Client client) {
 		this.client = client;
 	}

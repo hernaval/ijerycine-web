@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name="diffusion")
 public class Diffusion implements Serializable{
@@ -160,14 +163,14 @@ public class Diffusion implements Serializable{
 
 
 
-
+	@JsonIgnore
 	public Set<Tarification> getDiffusionTarifications() {
 		return diffusionTarifications;
 	}
 
 
 
-
+	@JsonProperty
 	public void setDiffusionTarifications(Set<Tarification> diffusionTarifications) {
 		this.diffusionTarifications = diffusionTarifications;
 	}
@@ -179,13 +182,14 @@ public class Diffusion implements Serializable{
 
 
 
+	@JsonIgnore
 	public Set<Reservation> getResaDiffusions() {
 		return resaDiffusions;
 	}
 
 
 
-
+	@JsonProperty
 	public void setResaDiffusions(Set<Reservation> resaDiffusions) {
 		this.resaDiffusions = resaDiffusions;
 	}

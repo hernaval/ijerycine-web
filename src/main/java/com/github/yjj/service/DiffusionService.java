@@ -11,8 +11,10 @@ import com.github.yjj.entity.Film;
 
 public interface DiffusionService {
 
-	public List<DiffusionDto> getAll();
+	public List<Diffusion> getAll();
 	public void doSave(DiffusionDto diff, List<TarificationDto> tarif) throws ParseException;
+	
+	public List<Diffusion> getSalleLibre(List<Object> params);
 	
 	public ArrayList<Film> getFilm();
 }

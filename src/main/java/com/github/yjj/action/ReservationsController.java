@@ -1,5 +1,8 @@
 package com.github.yjj.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ public class ReservationsController extends RestBaseAction implements Validateab
 	 */
 	private static final long serialVersionUID = 1L;
 	ReservationDto model = new ReservationDto();
-	ReservationList reservations;
+	List<Reservation> reservations ;
 
 	
 	@Autowired 
@@ -32,19 +35,30 @@ public class ReservationsController extends RestBaseAction implements Validateab
 	String prenom;
 	String email;
 	
+	String id;
+	
 	
 	public HttpHeaders index(){
 		
-		if(reservations ==null){
-			reservations = new ReservationList();
+		if(id ==null){
+			reservations = new ArrayList();
 		}
+		reservations = resaService.getAlls();
 		
-		reservations.setReservations(resaService.getAlls());  
 		
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 	
 	public HttpHeaders show(){
+		
+		if(id != null){
+			reservations = new ArrayList();
+			
+			
+			
+		}
+		reservations = resaService.getResaByDiffusion(Integer.parseInt(id));  
+		System.out.println(reservations.get(0));
 		
 		return new DefaultHttpHeaders("index").disableCaching();
 		
@@ -59,9 +73,7 @@ public class ReservationsController extends RestBaseAction implements Validateab
 			Client c = new Client(getEmail(),getNom(),getPrenom());
 			model.setClient(c);
 		}
-		
-		
-		
+
 		model.setDiffusion(diff);
 		model.setStatus(true);
 		resaService.doSave(model);
@@ -111,6 +123,16 @@ public class ReservationsController extends RestBaseAction implements Validateab
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

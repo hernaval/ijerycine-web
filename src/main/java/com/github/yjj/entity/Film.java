@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name="film")
 public class Film implements Serializable {
@@ -84,11 +87,12 @@ public class Film implements Serializable {
 	}
 	
 	
-
+	@JsonIgnore
 	public Set<Diffusion> getFilmDiffusions() {
 		return filmDiffusions;
 	}
 
+	@JsonProperty
 	public void setFilmDiffusions(Set<Diffusion> filmDiffusions) {
 		this.filmDiffusions = filmDiffusions;
 	}

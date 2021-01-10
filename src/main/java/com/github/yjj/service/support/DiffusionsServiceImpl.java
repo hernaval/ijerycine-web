@@ -35,16 +35,16 @@ public class DiffusionsServiceImpl  extends BaseServiceImpl implements Diffusion
 	BaseDAO<Film> filmDao;
 	
 	@Override
-	public List<DiffusionDto> getAll() {
+	public List<Diffusion> getAll() {
 		// TODO Auto-generated method stub
 		List<Diffusion> entities =  diffDao.find("from  Diffusion as diff");
-		System.out.println(entities);
+		/*System.out.println(entities);
 		List<DiffusionDto> diffusions = new ArrayList();
 		
 		for(Diffusion entity : entities){
 			diffusions.add(DiffusionConverter.toDto(entity));
-		}
-		return diffusions;
+		} */
+		return entities;
 	}
 
 	@Override
@@ -65,6 +65,13 @@ public class DiffusionsServiceImpl  extends BaseServiceImpl implements Diffusion
 		}
 	
 		
+	}
+
+	@Override
+	public List<Diffusion> getSalleLibre(List<Object> params) {
+		
+		return diffDao.find("from Diffusion as diff join diff.salle as s where s.idSalle = ? and diff.dateStart=? and diff.timeStart=?  ",params);
+
 	}
 
 	

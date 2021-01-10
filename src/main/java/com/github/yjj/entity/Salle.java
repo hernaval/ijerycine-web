@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 @Entity
 @Table(name="salle")
 public class Salle implements Serializable {
@@ -17,6 +20,7 @@ public class Salle implements Serializable {
 	
 	@Column(name="nomSalle")
 	private String nomSalle;
+	
 	
 	@OneToMany(mappedBy = "salle")
 	private Set<Diffusion> salleDiffusions = new HashSet();
@@ -64,13 +68,13 @@ public class Salle implements Serializable {
 	}
 	
 	
-
+	@JsonIgnore
 	public Set<Diffusion> getSalleDiffusions() {
 		return salleDiffusions;
 	}
 
 
-
+	@JsonProperty
 	public void setSalleDiffusions(Set<Diffusion> salleDiffusions) {
 		this.salleDiffusions = salleDiffusions;
 	}

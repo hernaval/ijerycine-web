@@ -25,8 +25,6 @@ import com.github.yjj.entity.Tarification;
 import com.github.yjj.service.DiffusionService;
 import com.opensymphony.xwork2.Validateable;
 
-import net.sf.json.JSONObject;
-
 
 public class DiffusionsController extends RestBaseAction implements Validateable  {
 
@@ -37,26 +35,24 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 	
 	DiffusionDto model;
 	Diffusion diffusion = new Diffusion();
-	DiffusionList diffusions;
+	List<Diffusion> diffusions;
 	
 	int filmId;
 	int salleId;
+	String id;
 	
 	float prixSimple;
 	float prixPremium;
 	float prixGold;
-	
-	String ts;
 	
 	
 	
 	@Autowired
 	DiffusionService diffService;
 	
+	
 	public HttpHeaders show()
 	{
-		
-				
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 	
@@ -64,13 +60,28 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 	public HttpHeaders index(){
 		
 		if(diffusions == null){
-			diffusions = new DiffusionList();
+			diffusions = new ArrayList();
 		}
 		
-		diffusions.setDiffusions(diffService.getAll());
-		System.out.println(diffService.getAll()); 
-		
+		diffusions = diffService.getAll();
+
 		return new DefaultHttpHeaders("index").disableCaching();
+	}
+	
+	public HttpHeaders salleLibre(){
+		List<Object> params = new ArrayList();
+		if(id != null){
+			String[] param = id.split("_");
+			params.add(Integer.parseInt(param[0]));
+			params.add(param[1]);
+			params.add(param[2]);
+			
+			diffusions = new ArrayList();
+		}
+				
+		diffusions = diffService.getSalleLibre(params) ;
+
+		return new DefaultHttpHeaders("salleLibre").disableCaching();
 	}
 	
 	public HttpHeaders create() throws ParseException{
@@ -149,12 +160,14 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 		this.prixGold = prixGold;
 	}
 
-	public String getTs() {
-		return ts;
+	
+
+	public String getId() {
+		return id;
 	}
 
-	public void setTs(String ts) {
-		this.ts = ts;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

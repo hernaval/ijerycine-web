@@ -13,12 +13,12 @@ public class DiffusionConverter {
 	public static DiffusionDto toDto(Diffusion entity){
 		DiffusionDto diff = new DiffusionDto();
 		diff.setFilm(entity.getFilm());
-		diff.setSalle(entity.getSalle()); 
+		diff.setSalle(entity.getSalle());  
 		
 		diff.setIdDiffusion(entity.getIdDiffusion());
 		
 		diff.setDateStart(entity.getDateStart());
-		diff.setTimeStart(entity.getTimeStart()); 
+		diff.setTimeStart(entity.getTimeStart());
 		diff.setTimeEnd(entity.getTimeEnd()); 
 		
 		

@@ -34,15 +34,16 @@ public class ReservationsServiceImpl extends BaseServiceImpl implements Reservat
 	}
 
 	@Override
-	public List<ReservationDto> getAlls() {
+	public List<Reservation> getAlls() {
 		List<Reservation> entities =  resaDao.find("from  Reservation as resa");
-		System.out.println(entities);
-		List<ReservationDto> reservations = new ArrayList();
 		
-		for(Reservation entity : entities){
-			reservations.add(ReservationConverter.toDto(entity));
-		}
-		return reservations;
+		return entities;
+	}
+
+	@Override
+	public List<Reservation> getResaByDiffusion(int id) {
+		// TODO Auto-generated method stub
+		return resaDao.find("from Reservation as resa join resa.diffusion as diff  where diff.idDiffusion = 1");
 	}
 
 }

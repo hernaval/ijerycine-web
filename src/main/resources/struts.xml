@@ -9,9 +9,12 @@
 
 	<bean name="xmlHandler" type="org.apache.struts2.rest.handler.ContentTypeHandler"
 		class="com.github.yjj.handler.XStreamHandler" />
+		
+		<bean type="org.apache.struts2.rest.handler.ContentTypeHandler" name="jackson" class="org.apache.struts2.rest.handler.JacksonLibHandler"/>
+		<constant name="struts.rest.handlerOverride.json" value="jackson"/>
 
-	 <bean name="jsonHandler" type="org.apache.struts2.rest.handler.ContentTypeHandler" 
-		class="com.github.yjj.handler.JacksonHandler" />  
+<!-- 	 <bean name="jsonHandler" type="org.apache.struts2.rest.handler.ContentTypeHandler"  -->
+<!-- 		class="com.github.yjj.handler.JacksonHandler" />   -->
 
 	<!-- Overwrite Convention -->
 	<constant name="struts.convention.action.suffix" value="Controller" />
