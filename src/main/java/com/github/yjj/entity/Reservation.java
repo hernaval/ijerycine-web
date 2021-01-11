@@ -152,7 +152,7 @@ public class Reservation implements Serializable {
 	}
 
 
-	@JsonIgnore
+
 	public Diffusion getDiffusion() {
 		return diffusion;
 	}

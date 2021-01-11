@@ -21,6 +21,9 @@ public class Salle implements Serializable {
 	@Column(name="nomSalle")
 	private String nomSalle;
 	
+	@Column(name="nbPlace")
+	private int nbPlace;
+	
 	
 	@OneToMany(mappedBy = "salle")
 	private Set<Diffusion> salleDiffusions = new HashSet();
@@ -29,7 +32,17 @@ public class Salle implements Serializable {
 	public Salle(){}
 
 	
-	
+
+	public Salle(int idSalle, String nomSalle, int nbPlace) {
+		super();
+		this.idSalle = idSalle;
+		this.nomSalle = nomSalle;
+		this.nbPlace = nbPlace;
+	}
+
+
+
+
 
 	public Salle(String nomSalle) {
 		super();
@@ -68,7 +81,22 @@ public class Salle implements Serializable {
 	}
 	
 	
-	@JsonIgnore
+	
+	
+	public int getNbPlace() {
+		return nbPlace;
+	}
+
+
+
+
+	public void setNbPlace(int nbPlace) {
+		this.nbPlace = nbPlace;
+	}
+
+
+
+
 	public Set<Diffusion> getSalleDiffusions() {
 		return salleDiffusions;
 	}

@@ -29,7 +29,7 @@ public class ReservationsController extends RestBaseAction implements Validateab
 	@Autowired 
 	ReservationService resaService;
 	
-	String diffusionId;
+	int diffusionId;
 	String clientId;
 	String nom;
 	String prenom;
@@ -49,25 +49,43 @@ public class ReservationsController extends RestBaseAction implements Validateab
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 	
+	//tokony hiova fonction hafa
 	public HttpHeaders show(){
 		
 		if(id != null){
-			reservations = new ArrayList();
-			
-			
+			model = resaService.get(Integer.parseInt(id));
 			
 		}
+		
+		return new DefaultHttpHeaders("show").disableCaching();
+		
+	}
+	
+	public HttpHeaders diffusionReservation(){
+		if(id != null){
+			reservations = new ArrayList<Reservation>();
+		}
 		reservations = resaService.getResaByDiffusion(Integer.parseInt(id));  
-		System.out.println(reservations.get(0));
 		
-		return new DefaultHttpHeaders("index").disableCaching();
 		
+		return null;
+	}
+	
+	public HttpHeaders clientReservation(){
+		if(id != null){
+			reservations = new ArrayList<Reservation>();
+		}
+		String[] param = id.split("_");
+		
+		reservations = resaService.getClientReservationByDiffusion(param[0], Integer.parseInt(param[1]));
+		
+		return null;
 	}
 	
 	public HttpHeaders create(){
 		
 		
-		Diffusion diff = new Diffusion(Integer.parseInt(getDiffusionId()));
+		Diffusion diff = new Diffusion(getDiffusionId());
 		
 		if(getClientId() == null){
 			Client c = new Client(getEmail(),getNom(),getPrenom());
@@ -76,18 +94,28 @@ public class ReservationsController extends RestBaseAction implements Validateab
 
 		model.setDiffusion(diff);
 		model.setStatus(true);
-		resaService.doSave(model);
+		model.setClient(new Client(getClientId()));;
+		
+		String[] numPlaces = model.getNumPlace().split("_");
+		List<String> places = new ArrayList();
+		for(String numPlace : numPlaces){
+			places.add(numPlace);
+		}
+		
+		resaService.doSave(model,places);
 		
 		return null;
 	}
 	
 	
 	
-	public String getDiffusionId() {
+	
+
+	public int getDiffusionId() {
 		return diffusionId;
 	}
 
-	public void setDiffusionId(String diffusionId) {
+	public void setDiffusionId(int diffusionId) {
 		this.diffusionId = diffusionId;
 	}
 

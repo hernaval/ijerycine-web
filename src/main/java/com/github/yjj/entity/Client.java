@@ -45,6 +45,15 @@ public class Client implements Serializable {
 	}
 
 
+	
+
+	public Client(String idClient) {
+		super();
+		this.idClient = idClient;
+	}
+
+
+
 
 	public Client(String idClient, String nom, String prenom, String email,String telephone, String password, String confirmCode,
 			String createdAt) {

@@ -88,6 +88,7 @@ public class DiffusionsController extends RestBaseAction implements Validateable
 		
 		Film f = new Film(); f.setIdFilm(getFilmId());
 		Salle s  = new Salle(); s.setIdSalle(getSalleId());
+		//mila ovaina
 		String date =  diffusion.getDateStart();
 		String start = diffusion.getTimeStart();
 		String end = diffusion.getTimeEnd();
